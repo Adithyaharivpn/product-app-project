@@ -5,7 +5,7 @@ const Main = (props) => {
   return (
     <div>
         <NavBar/>
-      {props.child}
+        {props.child}
     </div>
   )
 }
