@@ -1,16 +1,31 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
+import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
     var[input,setInput] = useState({})
+    var navigate = useNavigate()
+    var baseurl = import.meta.env.VITE_API_BASE_URL;
+
     const inputHandler = (e)=>{
         setInput({...input,[e.target.name]:e.target.value})
         console.log(input)
     }
     const addHandler = ()=>{
-        console.log("clicked")
+        console.log("clicked");
+        axios
+          .post(`${baseurl}/api`, input)
+          .then((res) => {
+            console.log(res);
+            alert(res.data.message)
+            navigate('/')
+          
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
   return (
     <div>
@@ -62,9 +77,9 @@ const SignUp = () => {
             onChange={inputHandler}
           />
           <Typography variant="h6" sx={{ color: "text.secondary" }}>
-            Already a User?<Link to={"/login"}>Login</Link>
+            Already a User?<Link to={"/"}>Login</Link>
           </Typography>
-          <Button variant="contained" onClick={addHandler} sx={{ margin: 3 }}>
+          <Button fullWidth variant="contained" onClick={addHandler} >
             submit
           </Button>
         </Box>

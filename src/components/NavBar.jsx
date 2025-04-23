@@ -22,7 +22,7 @@ const NavBar = () => {
             Product App
           </Typography>
           <Button color="inherit">Login</Button>
-          <Button color="inherit" ></Button>
+          {/* <Button color="inherit" ></Button> */}
         </Toolbar>
       </AppBar>
     </Box>
