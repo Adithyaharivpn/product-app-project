@@ -18,7 +18,7 @@ const SignUp = () => {
         axios
           .post(`${baseurl}/api`, input)
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
             alert(res.data.message)
             navigate('/')
           

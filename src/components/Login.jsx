@@ -1,12 +1,13 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import SignUp from './SignUp'
 import axios from 'axios'
 
 const Login = () => {
     var[input,setInput] = useState({})
+    var navigate = useNavigate()
     var baseurl = import.meta.env.VITE_API_BASE_URL;
     const inputHandler = (e)=>{
         setInput({...input,[e.target.name]:e.target.value})
@@ -15,9 +16,18 @@ const Login = () => {
     const addHandler = ()=>{
         console.log("clicked")
         axios
-          .post(`${baseurl}/api/login`, input)
+          .post(`${baseurl}/api/login`,input)
           .then((res) => {
-            alert(res.data.message)
+            console.log(res.data)
+            sessionStorage.setItem("role",res.data.user.role)
+            if(res.status === 200){
+              alert(res.data.message)
+              if(res.data.user.role === 'admin'){
+                navigate('/admin')
+              }else{
+                navigate('/product')
+              }
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -46,7 +56,7 @@ const Login = () => {
         <Typography variant="h4" sx={{ color: "black" }}>
           Welcome to Product App
         </Typography>
-        <Typography variant="h6" sx={{ color: "text.secondary" }}>
+        <Typography variant="h6" sx={{ color: "text.secondary"}}>
           Please login to continue
         </Typography>
         <TextField
