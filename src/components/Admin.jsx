@@ -8,7 +8,7 @@ const Admin = () => {
     price: "",
     description: "",
     stock: "",
-    images: [],
+    images: [],//test
   });
       var baseurl = import.meta.env.VITE_API_BASE_URL;
       const inputHandler = (e)=>{
