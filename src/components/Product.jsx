@@ -8,7 +8,7 @@ const Product = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/product")
+      .get("http://localhost:3000/p/product")
       .then((response) => {
         setProducts(response.data);
       })
@@ -29,16 +29,16 @@ const Product = () => {
                 />
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    ID:{value.pname}
+                    Name:{value.pname}
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {value.price}
+                    Price:{value.price}
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {value.description}
+                    Descripation:{value.description}
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {value.stock}
+                    Stock:{value.stock}
                   </Typography>
                 </CardContent>
               </Card>
@@ -49,5 +49,5 @@ const Product = () => {
     </div>
   )
 }
-// test
+
 export default Product

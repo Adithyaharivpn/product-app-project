@@ -8,7 +8,7 @@ const Admin = () => {
     price: "",
     description: "",
     stock: "",
-    images: [],//test
+    images: [],
   });
       var baseurl = import.meta.env.VITE_API_BASE_URL;
       const inputHandler = (e)=>{
@@ -18,10 +18,10 @@ const Admin = () => {
 
       const setHandler = ()=>{
         const formdata = new FormData();
-        formdata.append("pname.input",input.pname)
-        formdata.append("price.input",input.price)
-        formdata.append("description.input",input.description)
-        formdata.append("stock.input",input.stock)
+        formdata.append("pname",input.pname)
+        formdata.append("price",input.price)
+        formdata.append("description",input.description)
+        formdata.append("stock",input.stock)
         input.images.forEach((file)=>{
           formdata.append('images',file)
         })
