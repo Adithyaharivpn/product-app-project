@@ -1,6 +1,7 @@
 import { Box, Button, Divider, FormControlLabel, MenuItem, Select, Switch, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
   const [input, setInput] = useState({
@@ -38,6 +39,12 @@ const Admin = () => {
       }
   return (
     <div style={{ paddingLeft: 420 }}>
+            <Button variant="contained">
+        <Link to="/d" style={{ textDecoration: "none", color: "white" }}>
+          Product Details
+        </Link>
+      </Button>
+
       <Box
         component="form"
         sx={{
@@ -51,6 +58,7 @@ const Admin = () => {
           borderRadius:2
         }}
       >
+        
         <div>
           <Typography variant="h3" sx={{ color: "black" }}>
             Product Form
@@ -100,9 +108,9 @@ const Admin = () => {
             name="category"
             onChange={inputHandler}
           >
-            <MenuItem value={10}>test</MenuItem>
-            <MenuItem value={20}>test</MenuItem>
-            <MenuItem value={30}>test</MenuItem>
+            <MenuItem value={'10'}>test</MenuItem>
+            <MenuItem value={'20'}>test</MenuItem>
+            <MenuItem value={'30'}>test</MenuItem>
           </TextField>
           <FormControlLabel control={<Switch defaultChecked color="warning"/>} label="Available" sx={{color:'black'}}/>
           <Button variant='outlined' component='label'>
@@ -112,11 +120,20 @@ const Admin = () => {
             hidden
             multiple
             accept='image/*'
-            onChange={(e)=>{
-              setInput({...setInput,images:Array.from(e.target.files)})
-            }}
+            // onChange={(e)=>{
+            //   setInput({...input,images:Array.from(e.target.files)})
+            // }}//loses values 
+            onChange={(e) => {
+              const files = Array.from(e.target.files);
+              setInput((prev) => ({
+                ...prev,
+                images: files,
+              }))}}//stores prvious states
             />
           </Button>
+          <Typography variant="caption" display="block" color='black'>
+                  {input.images.length} file(s) selected
+                </Typography>
           <Button fullWidth variant="contained" onClick={setHandler}>
             submit
           </Button>
