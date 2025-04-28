@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 const ProductDetails = () => {
      var[products,setproducts] = useState([]);
+     
       var baseurl = import.meta.env.VITE_API_BASE_URL
       useEffect(()=>{
         axios.get(`${baseurl}/p/product`)
@@ -15,6 +16,9 @@ const ProductDetails = () => {
               console.log(err)
              })
       },[])
+      const updateHandler = (val) => {
+        console.log(val)
+      }
   return (
     <div>
       <TableContainer>
@@ -43,7 +47,11 @@ const ProductDetails = () => {
                             <TableCell>{val.price}</TableCell>
                             <TableCell>{val.stock}</TableCell>
                             <TableCell>
-                                <Button variant='contained'>Update</Button>
+                                <Button variant='contained' 
+                                onClick={()=>
+                                {updateHandler(val)}}>
+                                Update
+                                </Button>
                                 &nbsp;&nbsp;
                                 <Button variant='contained'>Delete</Button>
 
