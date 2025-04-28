@@ -1,10 +1,13 @@
 import { Table, TableContainer, TableHead, TableRow ,TableCell, TableBody, Button} from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ProductDetails = () => {
      var[products,setproducts] = useState([]);
-     
+     var location = useLocation();
+     var navigate = useNavigate();
+     console.log('loc',location.state)
       var baseurl = import.meta.env.VITE_API_BASE_URL
       useEffect(()=>{
         axios.get(`${baseurl}/p/product`)
@@ -16,8 +19,12 @@ const ProductDetails = () => {
               console.log(err)
              })
       },[])
-      const updateHandler = (val) => {
-        console.log(val)
+      const updateHandler = (pro) => {
+        console.log(pro)
+        navigate('/admin',{state:{pro}})
+      }
+      const updateHandler = ()=>{
+        
       }
   return (
     <div>
@@ -53,7 +60,7 @@ const ProductDetails = () => {
                                 Update
                                 </Button>
                                 &nbsp;&nbsp;
-                                <Button variant='contained'>Delete</Button>
+                                <Button variant='contained' onClick={delHandler}>Delete</Button>
 
                             </TableCell>
 

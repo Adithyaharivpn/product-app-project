@@ -20,11 +20,11 @@ const Product = () => {
 
   return (
     <div>
-      <Grid container spacing={3} sx={{marginTop:3}} alignItems="stretch">
+      <Grid container spacing={3} sx={{marginTop:3}}>
         {products.map((value, index) => {
           return (
             <Grid size={4} key={index}>
-              <Card variant="outlined">
+              <Card variant="outlined" sx={{ height: '100%' }}>
                 <CardMedia
                   sx={{ height: 250 }}
                   image={`${baseurl}/uploads/${value.images[0]}`}  

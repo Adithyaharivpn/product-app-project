@@ -1,7 +1,7 @@
 import { Box, Button, Divider, FormControlLabel, MenuItem, Select, Switch, TextField, Typography } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Admin = () => {
   const [input, setInput] = useState({
@@ -11,9 +11,23 @@ const Admin = () => {
     stock: "",
     images: [],
   });
+  var location = useLocation();
+  var navigate = useNavigate();
   var baseurl = import.meta.env.VITE_API_BASE_URL;
+  useEffect(()=>{
+    const {pro} = location.state ?? {};
+    if(location.state !== null){
+      setInput({
+        pname:pro.pname || "",
+        price:pro.price || "",
+        stock:pro.stock || "",
+        description:pro.description || "",
+        images:[]
+      })
+    }
+  },[location.state])
   const inputHandler = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    setInput({...input, [e.target.name]: e.target.value });
     console.log(input);
   };
 
@@ -26,15 +40,30 @@ const Admin = () => {
     input.images.forEach((file) => {
       formdata.append("images", file);
     });
-    axios
+    if(location.state !== null)
+    {    
+      var id = location.state.pro._id
+      axios
+      .put(`${baseurl}/p/update/${id}`, formdata)
+      .then((res) => {
+        alert(res.data.message);
+        navigate('/product')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else{
+      axios
       .post(`${baseurl}/p`, formdata)
       .then((res) => {
-        console.log(res.data);
         alert(res.data.message);
       })
       .catch((error) => {
         console.log(error);
       });
+    }
+
+
   };
   return (
     <div style={{margin:7}}>
@@ -76,6 +105,7 @@ const Admin = () => {
             label="Name"
             variant="outlined"
             name="pname"
+            value={input.pname}
             onChange={inputHandler}
           />
           <TextField
@@ -85,6 +115,7 @@ const Admin = () => {
             type="number"
             variant="outlined"
             name="price"
+            value={input.price}
             onChange={inputHandler}
           />
           <TextField
@@ -93,6 +124,7 @@ const Admin = () => {
             label="Description"
             variant="outlined"
             name="description"
+            value={input.description}
             onChange={inputHandler}
           />
           <TextField
@@ -102,6 +134,7 @@ const Admin = () => {
             type="number"
             variant="outlined"
             name="stock"
+            value={input.stock}
             onChange={inputHandler}
           />
 
@@ -143,7 +176,7 @@ const Admin = () => {
             />
           </Button>
           <Typography variant="caption" display="block" color="black">
-            {input.images.length} file(s) selected
+            {/* {input.images.length}*/} file(s) selected
           </Typography>
           <Button fullWidth variant="contained" onClick={setHandler}>
             submit
