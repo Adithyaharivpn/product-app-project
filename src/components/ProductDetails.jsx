@@ -19,10 +19,21 @@ const ProductDetails = () => {
               console.log(err)
              })
       },[])
+      
       const updateHandler = (pro) => {
         console.log(pro)
         navigate('/admin',{state:{pro}})
       }
+      const delHandler = (id)=>{
+        axios.delete(`${baseurl}/p/delete/${id}`).then((res)=>{
+            alert(res.data.message)
+            window.location.reload()
+        }).catch((error)=>{
+            console.log(error)
+        }
+        )
+    }
+
   return (
     <div>
       <TableContainer>
@@ -57,7 +68,7 @@ const ProductDetails = () => {
                                 Update
                                 </Button>
                                 &nbsp;&nbsp;
-                                <Button variant='contained'>Delete</Button>
+                                <Button variant='contained' onClick={()=>{delHandler(val._id)}}>Delete</Button>
 
                             </TableCell>
 

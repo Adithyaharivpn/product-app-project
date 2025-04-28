@@ -176,7 +176,7 @@ const Admin = () => {
             />
           </Button>
           <Typography variant="caption" display="block" color="black">
-            {/* {input.images.length}*/} file(s) selected
+            {input.images.length} file(s) selected
           </Typography>
           <Button fullWidth variant="contained" onClick={setHandler}>
             submit
