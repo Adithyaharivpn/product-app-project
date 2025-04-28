@@ -23,9 +23,6 @@ const ProductDetails = () => {
         console.log(pro)
         navigate('/admin',{state:{pro}})
       }
-      const updateHandler = ()=>{
-        
-      }
   return (
     <div>
       <TableContainer>
@@ -60,7 +57,7 @@ const ProductDetails = () => {
                                 Update
                                 </Button>
                                 &nbsp;&nbsp;
-                                <Button variant='contained' onClick={delHandler}>Delete</Button>
+                                <Button variant='contained'>Delete</Button>
 
                             </TableCell>
 
